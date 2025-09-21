@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости - Ketonal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+        /* Основные стили из index.css */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            padding-left: 20px;
+            padding-right: 20px;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            transition: opacity 1.2s ease;
+            filter: blur(0%);
+        }
+
+        .header {
+            background-color: rgba(255, 255, 255, 0.783);
+            backdrop-filter: blur(10px);
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 14px;
+            position: fixed;
+            z-index: 2;
+            width: calc(100% - 80px);
+            left: 40px;
+            top: 2%;
+            border: white 1px solid;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            z-index: -1;
+            box-shadow: inset 6px 6px 0px -6px rgba(255, 255, 255, 0.7),
+            inset 0 0 8px 1px rgba(255, 255, 255, 0.7);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: 40px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            margin-left: 20px;
+        }
+
+        .nav-link {
+            color: #515151;
+            text-decoration: none;
+            font-family: Inter, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: #000;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #58f2d6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #515151;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: #000;
+        }
+
+        .discord-login-btn {
+            background-color: #5865F2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: Inter, sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+            height: 40px;
+        }
+
+        .discord-login-btn:hover {
+            background-color: #4752c4;
+        }
+
+        .main-content {
+            padding-top: 100px;
+            width: 100%;
+            margin: 0 auto;
+            align-items: center;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #19bbbb, #19bbbb);
+            border-radius: 2px;
+        }
+
+        .footer {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            box-sizing: border-box;
+            border-top: 1px solid #ddd;
+            color: #222;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 40px;
+        }
+
+        .footer-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        /* Стили для страницы новостей */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background-color: rgba(255, 255, 255, 0.783);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            border: white 1px solid;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            color: #515151;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #19bbbb, #158a8a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .news-card-content {
+            padding: 20px;
+        }
+
+        .news-card-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #515151;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-card-excerpt {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: #666;
+        }
+
+        .news-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #8b8b8b;
+        }
+
+        .add-news-btn {
+            background-color: #19bbbb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: Inter, sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+            margin: 0 auto 30px;
+        }
+
+        .add-news-btn:hover {
+            background-color: #158a8a;
+        }
+
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            border: white 1px solid;
+            color: #515151;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.8rem;
+            color: #515151;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #515151;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-family: Inter, sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .cancel-btn {
+            background-color: #f1f1f1;
+            color: #515151;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: Inter, sans-serif;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background-color: #e1e1e1;
+        }
+
+        .submit-btn {
+            background-color: #19bbbb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: Inter, sans-serif;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #158a8a;
+        }
+
+        .empty-news {
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.783);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            color: #8b8b8b;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        /* Превью изображений */
+        .image-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .image-preview {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #ff5252;
+        }
+
+        /* Стили для модального окна просмотра новости со слайдером */
+        .view-news-modal .modal-content {
+            padding: 0;
+            max-width: 900px;
+            overflow: hidden;
+        }
+
+        .view-news-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .view-news-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.8rem;
+            color: #515151;
+            margin: 0;
+        }
+
+        .view-news-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #515151;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .view-news-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .news-slider {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .slider-btn {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .slider-btn i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #19bbbb;
+            transform: scale(1.2);
+        }
+
+        .view-news-content {
+            padding: 25px;
+            color: #515151;
+            line-height: 1.7;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .view-news-date {
+            color: #19bbbb;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .view-news-footer {
+            padding: 15px 25px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                width: calc(100% - 40px);
+                left: 20px;
+            }
+
+            .nav-menu {
+                gap: 15px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .news-slider {
+                height: 300px;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            .view-news-title {
+                font-size: 1.4rem;
+            }
+
+            .view-news-content {
+                padding: 15px;
+                max-height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .news-slider {
+                height: 250px;
+            }
+
+            .slider-btn {
+                width: 35px;
+                height: 35px;
+            }
+
+            .view-news-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<video autoplay muted loop playsinline class="background-video">
+    <source src="/src/background.mp4" type="video/mp4">
+</video>
+
+<div class="container">
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <img src="/src/ketonal.png" alt="Ketonal Logo" class="logo-img">
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="#about" class="nav-link">О проекте</a>
+                <a href="/wiki" class="nav-link">Вики</a>
+                <a href="news.html" class="nav-link">Новости</a>
+            </nav>
+        </div>
+
+        <div class="header-controls">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="discord-login-btn" onclick="loginWithDiscord()">
+                <i class="fab fa-discord"></i>
+                <span>Войти</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1 class="section-title">Новости проекта</h1>
+
+
+        <div class="news-grid" id="newsContainer">
+            <div class="empty-news">
+                <i class="fas fa-newspaper" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                <p>Пока нет новостей. Будьте первым, кто добавит новость!</p>
+            </div>
+        </div>
+    </main>
+
+
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="logo">
+                © 2025 Ketonal Project
+            </div>
+            <div class="disclaimer">
+                Мы никак не связаны с Minecraft®, Mojang Studios® или Microsoft®.
+            </div>
+        </div>
+        <div class="social-buttons">
+            <a class="social-btn discord-btn" href="https://discord.gg/YtrczGpanH" target="_blank">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1 14.66 14.66 0 0 0-4.58 0 10.14 10.14 0 0 0-.53-1.1 16 16 0 0 0-4.13 1.3 17.33 17.33 0 0 0-3 11.59 16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83 3.39 3.39 0 0 0 .42-.33 11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84 12.41 12.41 0 0 0 1.08 1.78 16.44 16.44 0 0 0 5.06-2.59 17.22 17.22 0 0 0-3-11.59 16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.93 1.93 0 0 1 1.8 2 1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.92 1.92 0 0 1 1.8 2 1.92 1.92 0 0 1-1.8 2z"/>
+                </svg>
+            </a>
+
+            <a class="social-btn youtube-btn">
+<!--                <svg viewBox="0 0 24 24">-->
+<!--                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>-->
+<!--                </svg>-->
+            </a>
+        </div>
+    </div>
+</footer>
+<!-- Модальное окно для просмотра новости со слайдером -->
+<div class="modal view-news-modal" id="viewNewsModal">
+    <div class="modal-content">
+        <div class="view-news-header">
+            <h2 class="view-news-title" id="viewNewsTitle"></h2>
+            <button class="view-news-close" id="closeViewModal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="news-slider" id="newsSlider">
+            <div class="slider-container" id="sliderContainer">
+                <!-- Слайды будут добавляться через JavaScript -->
+            </div>
+
+            <div class="slider-nav">
+                <button class="slider-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-btn next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="slider-dots" id="sliderDots">
+                <!-- Точки навигации будут добавляться через JavaScript -->
+            </div>
+        </div>
+
+        <div class="view-news-content">
+            <span class="view-news-date" id="viewNewsDate"></span>
+            <div id="viewNewsContent">
+                <!-- Контент новости будет здесь -->
+            </div>
+        </div>
+
+        <div class="view-news-footer">
+            <span>Автор: <strong id="viewNewsAuthor"></strong></span>
+            <span>Дата публикации: <strong id="viewNewsPublishDate"></strong></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const newsContainer = document.getElementById('newsContainer');
+        const addNewsBtn = document.getElementById('addNewsBtn');
+        const newsModal = document.getElementById('newsModal');
+        const viewNewsModal = document.getElementById('viewNewsModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const newsForm = document.getElementById('newsForm');
+        const newsIdInput = document.getElementById('newsId');
+        const newsTitleInput = document.getElementById('newsTitle');
+        const newsContentInput = document.getElementById('newsContent');
+        const newsImagesInput = document.getElementById('newsImages');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const closeModal = document.getElementById('closeModal');
+        const closeViewModal = document.getElementById('closeViewModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const viewNewsTitle = document.getElementById('viewNewsTitle');
+        const viewNewsContent = document.getElementById('viewNewsContent');
+        const viewNewsDate = document.getElementById('viewNewsDate');
+        const viewNewsAuthor = document.getElementById('viewNewsAuthor');
+        const viewNewsPublishDate = document.getElementById('viewNewsPublishDate');
+        const sliderContainer = document.getElementById('sliderContainer');
+        const sliderDots = document.getElementById('sliderDots');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+
+        let currentImages = [];
+        let currentSlideIndex = 0;
+        let currentNewsItem = null;
+
+
+        closeViewModal.addEventListener('click', closeViewModalWindow);
+        cancelBtn.addEventListener('click', closeModalWindow);
+
+        window.addEventListener('click', (e) => {
+            if (e.target === newsModal) {
+                closeModalWindow();
+            }
+            if (e.target === viewNewsModal) {
+                closeViewModalWindow();
+            }
+        });
+
+
+        newsImagesInput.addEventListener('change', handleImageUpload);
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        function loadNews() {
+            let news = JSON.parse(localStorage.getItem('ketonalNews')) || [];
+
+            if (news.length === 0) {
+                newsContainer.innerHTML = `
+
+                `;
+                return;
+            }
+
+            news.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            newsContainer.innerHTML = '';
+
+            news.forEach((item) => {
+                const firstImage = item.images && item.images.length > 0 ? item.images[0] : null;
+                const excerpt = item.content.length > 150 ? item.content.substring(0, 150) + '...' : item.content;
+
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                newsCard.setAttribute('data-id', item.id);
+
+                newsCard.innerHTML = `
+                    ${firstImage ?
+                    `<img src="${firstImage}" alt="${item.title}" class="news-image">` :
+                    `<div class="no-image"><i class="fas fa-image"></i></div>`
+                }
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">${item.title}</h3>
+                        <p class="news-card-excerpt">${excerpt}</p>
+                        <div class="news-card-footer">
+                            <span>${formatDate(item.date)}</span>
+                            <span>Автор: ${item.author || 'Администратор'}</span>
+                        </div>
+                    </div>
+                `;
+
+                // Добавляем обработчик клика для просмотра новости
+                newsCard.addEventListener('click', (e) => {
+                    // Проверяем, не был ли клик по кнопке управления
+                    if (!e.target.closest('.news-actions')) {
+                        viewNews(item.id);
+                    }
+                });
+
+                // Добавляем кнопки управления для администратора
+                const actions = document.createElement('div');
+                actions.className = 'news-actions';
+                actions.innerHTML = `
+                    <button class="news-btn edit-btn" data-id="${item.id}">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="news-btn delete-btn" data-id="${item.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+
+                newsCard.querySelector('.news-card-content').appendChild(actions);
+
+                // Добавляем обработчики для кнопок редактирования и удаления
+                actions.querySelector('.edit-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    editNews(item.id);
+                });
+
+                actions.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteNews(item.id);
+                });
+
+                newsContainer.appendChild(newsCard);
+            });
+        }
+
+
+        function closeViewModalWindow() {
+            viewNewsModal.style.display = 'none';
+        }
+
+
+        function viewNews(id) {
+            const news = JSON.parse(localStorage.getItem('ketonalNews')) || [];
+            currentNewsItem = news.find(item => item.id === id);
+
+            if (currentNewsItem) {
+                viewNewsTitle.textContent = currentNewsItem.title;
+                viewNewsDate.textContent = formatDate(currentNewsItem.date);
+                viewNewsContent.textContent = currentNewsItem.content;
+                viewNewsAuthor.textContent = currentNewsItem.author || 'Администратор';
+                viewNewsPublishDate.textContent = formatDate(currentNewsItem.date);
+
+                sliderContainer.innerHTML = '';
+                sliderDots.innerHTML = '';
+                currentSlideIndex = 0;
+
+                if (currentNewsItem.images && currentNewsItem.images.length > 0) {
+                    currentNewsItem.images.forEach((image, idx) => {
+                        const slide = document.createElement('div');
+                        slide.className = 'slide';
+                        slide.innerHTML = `<img src="${image}" alt="Изображение ${idx + 1}">`;
+                        sliderContainer.appendChild(slide);
+
+                        const dot = document.createElement('div');
+                        dot.className = `dot ${idx === 0 ? 'active' : ''}`;
+                        dot.setAttribute('data-index', idx);
+                        dot.addEventListener('click', () => navigateToSlide(idx));
+                        sliderDots.appendChild(dot);
+                    });
+                } else {
+                    sliderContainer.innerHTML = `
+                        <div class="slide">
+                            <div class="no-image" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-image" style="font-size: 3rem; color: #fff;"></i>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                viewNewsModal.style.display = 'flex';
+
+                updateSlider();
+            }
+        }
+
+        function nextSlide() {
+            if (!currentNewsItem || !currentNewsItem.images) return;
+            currentSlideIndex = (currentSlideIndex + 1) % currentNewsItem.images.length;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            if (!currentNewsItem || !currentNewsItem.images) return;
+            currentSlideIndex = (currentSlideIndex - 1 + currentNewsItem.images.length) % currentNewsItem.images.length;
+            updateSlider();
+        }
+
+        function navigateToSlide(index) {
+            currentSlideIndex = index;
+            updateSlider();
+        }
+
+        function updateSlider() {
+            if (!currentNewsItem || !currentNewsItem.images) return;
+
+            sliderContainer.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentSlideIndex);
+            });
+        }
+
+        function editNews(id) {
+            openModal(id);
+        }
+
+
+        function deleteNews(id) {
+            if (confirm('Вы уверены, что хотите удалить эту новость?')) {
+                let news = JSON.parse(localStorage.getItem('ketonalNews')) || [];
+                news = news.filter(item => item.id !== id);
+                localStorage.setItem('ketonalNews', JSON.stringify(news));
+                loadNews();
+            }
+        }
+
+        function handleImageUpload(e) {
+            const files = e.target.files;
+
+            if (!files || files.length === 0) return;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                if (!file.type.match('image.*')) {
+                    alert('Пожалуйста, выбирайте только изображения');
+                    continue;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    currentImages.push(e.target.result);
+                    updateImagePreview();
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+            newsImagesInput.value = '';
+        }
+
+        function updateImagePreview() {
+            imagePreviewContainer.innerHTML = '';
+
+            currentImages.forEach((image, index) => {
+                const preview = document.createElement('div');
+                preview.className = 'image-preview';
+
+                preview.innerHTML = `
+                    <img src="${image}" alt="Preview ${index + 1}">
+                    <button type="button" class="remove-image" data-index="${index}">&times;</button>
+                `;
+
+                preview.querySelector('.remove-image').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idx = parseInt(e.target.getAttribute('data-index'));
+                    currentImages.splice(idx, 1);
+                    updateImagePreview();
+                });
+
+                imagePreviewContainer.appendChild(preview);
+            });
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function formatDate(dateString) {
+            const options = {year: 'numeric', month: 'long', day: 'numeric'};
+            return new Date(dateString).toLocaleDateString('ru-RU', options);
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', function () {
+            document.body.classList.toggle('light-theme');
+            const icon = this.querySelector('i');
+
+            if (document.body.classList.contains('light-theme')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        window.loginWithDiscord = function () {
+            alert('Функция входа через Discord будет реализована позже');
+        };
+
+        document.addEventListener('keydown', function (e) {
+            if (viewNewsModal.style.display === 'flex') {
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        prevSlide();
+                        break;
+                    case 'ArrowRight':
+                        nextSlide();
+                        break;
+                    case 'Escape':
+                        closeViewModalWindow();
+                        break;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
